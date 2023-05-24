@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 #Pixel Wiring Map
 #
 #
@@ -39,6 +41,7 @@ segment_map = {
 }
 
 def display_digit(digit, position):
+    pixels.fill((0, 0, 0))  #reset pixels to remove previous pixels if digit changes
     # Calculate the LED indices for the given digit and position in reverse order
     segment_leds = [(position * 21 + led -1) for led in segment_map[digit]]
     # Turn on the LEDs for the segment
@@ -84,4 +87,3 @@ clear_display()
 while True:
     display_time()
     time.sleep(1)
-    clear_display()
