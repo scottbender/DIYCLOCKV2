@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-#Pixel Wiring Map (From front of clock)
+# Pixel Wiring Map (From front of clock)
 #
 #
 #    83 82 81       62 61 60            39 38 37       18 17 16
@@ -40,16 +40,15 @@ segment_map = {
     '9': [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 }
 
+
 def display_digit(digit, position):
-    pixels.fill((0, 0, 0))  #reset pixels to remove previous pixels if digit changes
     # Calculate the LED indices for the given digit and position in reverse order
     segment_leds = [(position * 21 + led -1) for led in segment_map[digit]]
     # Turn on the LEDs for the segment
+    for led in range(21):   #clear out pixels in case of digit change
+        pixels[led] = (0, 0, 0)
     for led in segment_leds:
         pixels[led] = (0, 255, 0)
-
-    # Update the Neopixel display
-    pixels.show()
 
 def clear_display():
     # Clear all LEDs on the strip
@@ -60,7 +59,6 @@ def display_time():
     # Get the current time
     #current_time = time.strftime('%H%M')  #24 hour clock
     current_time = time.strftime('%I%M')  #12 hour clock
-
     # Display hours
     if current_time[0] != '0':
         display_digit(current_time[1], -1)  # print first digit of hour if not 0
@@ -74,11 +72,11 @@ def display_time():
     else:
         pixels[42] = (0, 0, 0)
         pixels[43] = (0, 0, 0)
-    pixels.show()
 
     # Display minutes
     display_digit(current_time[2], 1)
     display_digit(current_time[3], 0)
+    pixels.show()
 
 # Clear the display initially
 clear_display()
