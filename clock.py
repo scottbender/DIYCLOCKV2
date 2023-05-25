@@ -45,8 +45,6 @@ def display_digit(digit, position):
     # Calculate the LED indices for the given digit and position in reverse order
     segment_leds = [(position * 21 + led -1) for led in segment_map[digit]]
     # Turn on the LEDs for the segment
-    for led in range(21):   #clear out pixels in case of digit change
-        pixels[led] = (0, 0, 0)
     for led in segment_leds:
         pixels[led] = (0, 255, 0)
 
@@ -59,9 +57,13 @@ def display_time():
     # Get the current time
     #current_time = time.strftime('%H%M')  #24 hour clock
     current_time = time.strftime('%I%M')  #12 hour clock
+
+    for led in range(num_pixels):   #clear out pixels in case of digit change
+        pixels[led] = (0, 0, 0)
+
     # Display hours
     if current_time[0] != '0':
-        display_digit(current_time[1], -1)  # print first digit of hour if not 0
+        display_digit(current_time[0], -1)  # print first digit of hour if not 0
     display_digit(current_time[1], -2)
     
     # Display dots (blinking once per second)
