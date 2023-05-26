@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Pixel Wiring Map (From front of clock)
+#  Pixel Wiring Map (From front of clock)
 #
 #
 #    83 82 81       62 61 60            39 38 37       18 17 16
